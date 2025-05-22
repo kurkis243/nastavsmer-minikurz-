@@ -1,1 +1,0 @@
-# nastavsmer-minikurz-

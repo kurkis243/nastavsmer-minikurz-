@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tvoje ciele – Minikurz</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #f6f9fc;
+      margin: 0;
+      padding: 0;
+      color: #333;
+    }
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      background: white;
+      padding: 25px 30px;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+    h1, h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    .task {
+      display: none;
+      margin-top: 20px;
+    }
+    .task.active {
+      display: block;
+    }
+    label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+    }
+    input[type="text"], textarea, select {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+    }
+    .option-group label {
+      display: block;
+      margin: 5px 0;
+    }
+    button {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 100%;
+      max-width: 300px;
+      margin: 20px auto;
+      display: block;
+    }
+    button:hover {
+      background: #2980b9;
+    }
+    .summary {
+      white-space: pre-wrap;
+      background: #f0f8ff;
+      padding: 15px;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+    .slider-value {
+      font-weight: bold;
+      margin-left: 10px;
+    }
+    .image-choice {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+    .image-choice img {
+      width: 100px;
+      height: auto;
+      cursor: pointer;
+      border: 2px solid transparent;
+      margin: 5px;
+      border-radius: 8px;
+    }
+    .image-choice img.selected {
+      border-color: #3498db;
+    }
+    @media (max-width: 600px) {
+      .container {
+        padding: 15px 20px;
+      }
+      button {
+        font-size: 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="task active">
+    <h1>🎯 Vitaj v minikurze</h1>
+    <p>Vitaj! Tento minikurz ti pomôže nastaviť si ciele. Prejdi si všetkých 20 úloh, ktoré ti pomôžu získať jasno a chuť konať.</p>
+    <button onclick="nextTask()">Začať</button>
+  </div>
+
+  <!-- 10 vpisovacích úloh -->
+  <div class="task"><h2>Úloha 1</h2><label>✍️ Čo ťa najviac motivuje?</label><textarea id="q1" rows="3"></textarea><button onclick="nextTask()">Ďalej</button></div>
+  <div class="task"><h2>Úloha 2</h2><label>🎯 Aký cieľ si chceš splniť do 3 mesiacov?</label><textarea id="q2" rows="3"></textarea><button onclick="nextTask()">Ďalej</button></div>
+  <div class="task"><h2>Úloha 3</h2><label>❤️ Prečo ti na ňom záleží?</label><textarea id="q3" rows="3"></textarea><button onclick="nextTask()">Ďalej</button></div>
+  <div class="task"><h2>Úloha 4</h2><label>🧠 Aké máš prekážky?</label><textarea id="q4" rows="3"></textarea><button onclick="nextTask()">Ďalej</button></div>
+  <div class="task"><h2>Úloha 5</h2><label>🚧 Ako ich prekonáš?</label><textarea id="q5" rows="3"></textarea><button onclick="nextTask()">Ďalej</button></div>
+  <div class="task"><h2>Úloha 6</h2><label>👥 Kto ti môže pomôcť?</label><textarea id="q6" rows="3"></textarea><button onclick="nextTask()">Ďalej</button></div>
+  <div class="task"><h2>Úloha 7</h2><label>🔁 Rozdeľ cieľ na 3 kroky.</label><textarea id="q7" rows="3"></textarea><button onclick="nextTask()">Ďalej</button></div>
+  <div class="task"><h2>Úloha 8</h2><label>📅 Urči termíny pre tieto kroky.</label><textarea id="q8" rows="3"></textarea><button onclick="nextTask()">Ďalej</button></div>
+  <div class="task"><h2>Úloha 9</h2><label>✅ Čo spravíš ako prvé?</label><textarea id="q9" rows="3"></textarea><button onclick="nextTask()">Ďalej</button></div>
+  <div class="task"><h2>Úloha 10</h2><label>🎁 Ako sa odmeníš za pokrok?</label><textarea id="q10" rows="3"></textarea><button onclick="nextTask()">Ďalej</button></div>
+
+  <!-- 10 interaktívnych úloh -->
+  <div class="task"><h2>Úloha 11</h2><label>🔎 Ako sa dnes cítiš?</label>
+    <select id="q11">
+      <option>Motivovaný/á</option>
+      <option>Neistý/á</option>
+      <option>Unavený/á</option>
+      <option>Nadšený/á</option>
+    </select>
+    <button onclick="nextTask()">Ďalej</button>
+  </div>
+  <div class="task"><h2>Úloha 12</h2><label>📊 Ako si veríš, že to zvládneš? (0–10)</label>
+    <input type="range" id="q12" min="0" max="10" value="5" oninput="document.getElementById('v12').innerText=this.value;">
+    <span id="v12">5</span>
+    <button onclick="nextTask()">Ďalej</button>
+  </div>
+  <div class="task"><h2>Úloha 13</h2><label>🖼️ Vyber si, čo ťa najviac vystihuje:</label>
+    <div class="image-choice">
+      <img src="https://via.placeholder.com/100?text=❤️" onclick="selectImage(this)">
+      <img src="https://via.placeholder.com/100?text=⚡" onclick="selectImage(this)">
+      <img src="https://via.placeholder.com/100?text=☀️" onclick="selectImage(this)">
+    </div>
+    <button onclick="nextTask()">Ďalej</button>
+  </div>
+  <div class="task"><h2>Úloha 14</h2><label>🔐 Zadaj tajné slovo (heslo cieľa):</label>
+    <input type="text" id="q14" />
+    <button onclick="nextTask()">Ďalej</button>
+  </div>
+  <div class="task"><h2>Úloha 15</h2><label>☕ Čo si dáš, keď to úspešne dokončíš?</label>
+    <select id="q15">
+      <option>Kávu</option>
+      <option>Čaj</option>
+      <option>Kúsok koláča</option>
+      <option>Dobrý film</option>
+    </select>
+    <button onclick="nextTask()">Ďalej</button>
+  </div>
+  <div class="task"><h2>Úloha 16</h2><label>📅 Vyber si deň, kedy začneš:</label>
+    <input type="date" id="q16" />
+    <button onclick="nextTask()">Ďalej</button>
+  </div>
+  <div class="task"><h2>Úloha 17</h2><label>⏰ Kedy si budeš pripomínať cieľ?</label>
+    <input type="time" id="q17" />
+    <button onclick="nextTask()">Ďalej</button>
+  </div>
+  <div class="task"><h2>Úloha 18</h2><label>🔁 Ako často chceš pokrok kontrolovať?</label>
+    <select id="q18">
+      <option>Každý deň</option>
+      <option>Raz za týždeň</option>
+      <option>Raz za mesiac</option>
+    </select>
+    <button onclick="nextTask()">Ďalej</button>
+  </div>
+  <div class="task"><h2>Úloha 19</h2><label>✨ Vyber jedno slovo, ktoré ti pripomenie tvoj cieľ:</label>
+    <input type="text" id="q19" />
+    <button onclick="nextTask()">Ďalej</button>
+  </div>
+  <div class="task"><h2>Úloha 20</h2><label>✏️ Napíš si odkaz pre seba o mesiac:</label>
+    <textarea id="q20" rows="3"></textarea>
+    <button onclick="showSummary()">Zobraziť zhrnutie</button>
+  </div>
+
+  <div class="task" id="summary">
+    <h2>🎉 Gratulujeme!</h2>
+    <p>Úspešne si dokončil/a celý kurz. Tu je tvoje zhrnutie:</p>
+    <div class="summary" id="answers"></div>
+  </div>
+</div>
+
+<script>
+  function nextTask() {
+    const current = document.querySelector(".task.active");
+    if (current) {
+      current.classList.remove("active");
+      const next = current.nextElementSibling;
+      if (next) next.classList.add("active");
+    }
+  }
+  function selectImage(img) {
+    const all = img.parentElement.querySelectorAll("img");
+    all.forEach(i => i.classList.remove("selected"));
+    img.classList.add("selected");
+  }
+  function showSummary() {
+    let text = "";
+    for (let i = 1; i <= 20; i++) {
+      const el = document.getElementById("q" + i);
+      if (el) text += `Úloha ${i}:\n${el.value || el.options?.[el.selectedIndex]?.text || ''}\n\n`;
+    }
+    document.getElementById("answers").textContent = text;
+    nextTask();
+  }
+</script>
+</body>
+</html>
